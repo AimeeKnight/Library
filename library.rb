@@ -76,9 +76,14 @@ class Library
 	end
 
 	def who_has_what
-		@books.each do |book| 
-			puts "#{book.title} is checked out by #{book.checked_out_by}"
-			puts "#{book_title} is due #{book.due}"
+		checked_out_books = @books.select {|book| book.checked_out_by != nil && book.due_date != 0	}
+		if checked_out_books.size != 0
+			checked_out_books.each do
+				puts "#{book.title} is checked out by #{book.checked_out_by}"
+				puts "#{book_title} is due #{book.due_date}"
+			end
+		else
+			puts "There are no books currently checked out"
 		end
 	end
 
