@@ -1,5 +1,5 @@
 class User
-	attr_accessor :name, :num_books_checked_out, :status, :books_checked_out
+	attr_accessor :name, :num_books_checked_out, :statuses, :status, :books_checked_out
 
 	def initialize name
 		@name = name
