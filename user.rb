@@ -5,7 +5,8 @@ class User
 		@name = name
 		@num_books_checked_out = 0
 		@books_checked_out = []
-		@status = "clear"
+		@statuses = ["clear", "books_overdue"]
+		@status = @statuses[0]
 	end
 
 end
