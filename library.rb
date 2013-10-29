@@ -8,7 +8,7 @@ class Library
 		if @lib_file
 			File.open(@lib_file).each_line do |line|
 				fields = line.split(',')
-					@books << Book.new(fields[0].strip, fields[1].strip, fields[2].strip)
+					@books << Book.new(fields[0].strip.to_s, fields[1].strip.to_s, fields[2].strip.to_s)
 			end
 		end
 	end
@@ -18,7 +18,7 @@ class Library
 	end
 
 	def get_book title
-		@books.select { |book| book.title == title }.first
+		@books.find { |book| book.title == title }
 	end
 
 	def checkout_book user, title
@@ -60,6 +60,7 @@ class Library
 					puts "#{user.name}, the book titled '#{book.title}' is overdue"
 				else
 					puts "#{user.name}, you don't have any overdue books"	
+					false
 				end
 			end
 		end
@@ -94,6 +95,17 @@ class Library
 			book.reserved_by << user
 		else
 			puts "#{book.title} isn't checked out and can be reserved now."
+		end
+	end
+
+	def extension user, title
+		book = get_book title
+		if book.checked_out_by == user
+			book.due_date += (7*24+60*60)
+			due_date_str = book.due_date.strftime("%m/%d/%y")
+			puts "The due date for #{book.title} has been extended to #{due_date_str}"
+		else
+			puts "#{user.name}, you will need to check out #{book.title} before requesting an extension"
 		end
 	end
 
