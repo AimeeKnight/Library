@@ -32,6 +32,7 @@ class Library
 				book.status = book.statuses[1]
 				book.checked_out_date = Time.new
 				book.due_date = book.checked_out_date + (7*24+60*60)
+				#due_date_str = book.due_date.strftime("%m/%d/%y")
 				book.checked_out_by = user
 				user.num_books_checked_out += 1
 				user.books_checked_out << book
